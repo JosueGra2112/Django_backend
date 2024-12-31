@@ -7,7 +7,8 @@ class RadioStation(models.Model):
     call_sign = models.CharField(max_length=20)
     slogan = models.CharField(max_length=100)
     streaming_url = models.URLField(max_length=200)
-    image = models.ImageField(upload_to='', blank=True, null=True)  # Aquí se configura el campo para imágenes
+    image = models.ImageField(upload_to='', blank=True, null=True) 
+    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

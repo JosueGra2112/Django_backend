@@ -22,7 +22,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('radio.urls')),
+    path('api/stations/', include('radio.urls')),
 ]
 
 if settings.DEBUG:
