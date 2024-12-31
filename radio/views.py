@@ -8,18 +8,17 @@ from .models import RadioStation
 from .serializers import RadioStationSerializer
 
 class RadioStationList(APIView):
-    """
-    Endpoint para listar todas las estaciones de radio y crear una nueva estación.
-    """
+
+    #Listar estaciones de radio 
+    
     def get(self, request):
         stations = RadioStation.objects.all()
         serializer = RadioStationSerializer(stations, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request):
-        """
-        Crear una nueva estación de radio.
-        """
+
+        # Estaction de radio nueva
         serializer = RadioStationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -28,19 +27,16 @@ class RadioStationList(APIView):
 
 @api_view(['POST'])
 def update_favorite_status(request):
-    """
-    Endpoint para actualizar el estado de favorito de una estación de radio.
-    """
+  
+        #Agregar a favoritos
     try:
-        data = request.data  # Obtiene los datos enviados desde el cliente
+        data = request.data 
         station_id = data.get('id')
         is_favorite = data.get('is_favorite')
-
-        # Verifica si existe la estación
-        station = get_object_or_404(RadioStation, id=station_id)
-
-        # Actualiza el estado de favorito
-        station.is_favorite = is_favorite
+        
+        station = get_object_or_404(RadioStation, id=station_id)# Verifica si existe la estación
+       
+        station.is_favorite = is_favorite  #Actualiza el estado de favorito
         station.save() 
 
         return JsonResponse({"message": "Favorite status updated successfully"})
